@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Connect — Eliminar datos</title>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #08080f;
+      --surface:   #0e0e1a;
+      --accent:    #00b4ff;
+      --accent-dim:#003a55;
+      --border:    #1a1a2e;
+      --text:      #eeeef2;
+      --muted:     #3a3a55;
+      --sub:       #5a5a7a;
+      --red:       #ff3b3b;
+      --red-dim:   #3a0a0a;
+      --mono:      'Share Tech Mono', monospace;
+      --sans:      'DM Sans', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── GRID BACKGROUND ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 44px 44px;
+      opacity: 0.6;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── RADIAL GLOW ── */
+    body::after {
+      content: '';
+      position: fixed;
+      top: -20%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 700px;
+      height: 500px;
+      background: radial-gradient(ellipse, rgba(0,180,255,0.07) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── METEOR CANVAS ── */
+    #meteors {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── LAYOUT ── */
+    .page {
+      position: relative;
+      z-index: 1;
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 60px 24px 80px;
+    }
+
+    /* ── HEADER ── */
+    header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 56px;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    .logo-mark {
+      width: 38px;
+      height: 38px;
+      border: 1.5px solid var(--accent-dim);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--surface);
+    }
+
+    .logo-mark svg { width: 20px; height: 20px; }
+
+    .brand {
+      font-family: var(--mono);
+      font-size: 13px;
+      letter-spacing: 3px;
+      color: var(--text);
+    }
+
+    .brand span {
+      color: var(--accent);
+    }
+
+    /* ── HERO ── */
+    .hero {
+      margin-bottom: 48px;
+      animation: fadeUp 0.6s 0.1s ease both;
+    }
+
+    .eyebrow {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 2px;
+      color: var(--accent);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .eyebrow::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      display: inline-block;
+    }
+
+    h1 {
+      font-size: clamp(28px, 5vw, 40px);
+      font-weight: 500;
+      line-height: 1.2;
+      letter-spacing: -0.5px;
+      margin-bottom: 16px;
+    }
+
+    h1 em {
+      font-style: normal;
+      color: var(--accent);
+    }
+
+    .hero p {
+      font-size: 15px;
+      color: var(--sub);
+      line-height: 1.7;
+      max-width: 520px;
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, var(--accent-dim), transparent);
+      margin: 40px 0;
+      animation: fadeUp 0.6s 0.2s ease both;
+    }
+
+    /* ── CARDS ── */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 28px;
+      margin-bottom: 16px;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    .card:nth-child(1) { animation-delay: 0.25s; }
+    .card:nth-child(2) { animation-delay: 0.35s; }
+    .card:nth-child(3) { animation-delay: 0.45s; }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .step-badge {
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: 1.5px;
+      color: var(--accent);
+      background: rgba(0,180,255,0.08);
+      border: 1px solid rgba(0,180,255,0.2);
+      border-radius: 20px;
+      padding: 4px 10px;
+      white-space: nowrap;
+    }
+
+    .card h2 {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    .card p {
+      font-size: 14px;
+      color: var(--sub);
+      line-height: 1.7;
+    }
+
+    /* ── RESET BUTTON PREVIEW ── */
+    .reset-preview {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 20px 0;
+      background: rgba(255,59,59,0.06);
+      border: 1px solid rgba(255,59,59,0.25);
+      border-radius: 24px;
+      padding: 9px 20px;
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 2px;
+      color: var(--red);
+    }
+
+    .reset-preview::before {
+      content: '';
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--red);
+    }
+
+    /* ── CODE BOX ── */
+    .code-box {
+      background: var(--bg);
+      border: 1px solid rgba(0,180,255,0.1);
+      border-radius: 10px;
+      padding: 14px 18px;
+      margin-top: 16px;
+      font-family: var(--mono);
+      font-size: 12px;
+      color: rgba(0,180,255,0.6);
+      letter-spacing: 0.5px;
+      word-break: break-all;
+    }
+
+    /* ── WARNING CARD ── */
+    .card.warning {
+      border-color: rgba(255,59,59,0.2);
+      background: linear-gradient(135deg, var(--surface), var(--red-dim));
+    }
+
+    .card.warning .card-header .step-badge {
+      color: var(--red);
+      background: rgba(255,59,59,0.08);
+      border-color: rgba(255,59,59,0.2);
+    }
+
+    /* ── STEPS LIST ── */
+    .steps {
+      list-style: none;
+      margin-top: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .steps li {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+
+    .step-num {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--accent);
+      border: 1px solid var(--accent-dim);
+      border-radius: 50%;
+      width: 22px;
+      height: 22px;
+      min-width: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 1px;
+    }
+
+    .steps li p {
+      font-size: 14px;
+      color: var(--sub);
+      line-height: 1.6;
+    }
+
+    .steps li p strong {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      margin-top: 64px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      animation: fadeUp 0.6s 0.5s ease both;
+    }
+
+    footer p {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 1px;
+      color: var(--muted);
+    }
+
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 1px;
+    }
+
+    footer a:hover { text-decoration: underline; }
+
+    /* ── ANIMATION ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 480px) {
+      .page { padding: 40px 16px 60px; }
+      .card { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<canvas id="meteors"></canvas>
+
+<div class="page">
+
+  <!-- Header -->
+  <header style="justify-content:space-between;">
+    <div style="display:flex;align-items:center;gap:14px;">
+      <div class="logo-mark">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M4 4 L10 20 L12 14 L20 4" stroke="#00b4ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M12 14 L20 20" stroke="#00b4ff" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <span class="brand">CONNECT<span> · </span>DATA</span>
+    </div>
+    <div style="display:flex;gap:8px;">
+      <a href="index.html" style="font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:1.5px;color:#00b4ff;text-decoration:none;border:1px solid #003a55;border-radius:20px;padding:6px 14px;">DELETION</a>
+      <a href="privacy.html" style="font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:1.5px;color:#5a5a7a;text-decoration:none;border:1px solid #1a1a2e;border-radius:20px;padding:6px 14px;">PRIVACY</a>
+      <a href="terms.html" style="font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:1.5px;color:#5a5a7a;text-decoration:none;border:1px solid #1a1a2e;border-radius:20px;padding:6px 14px;">TERMS</a>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="eyebrow">ELIMINACIÓN DE DATOS</div>
+    <h1>Borra tus datos<br /><em>cuando quieras</em></h1>
+    <p>Connect no requiere registro ni correo electrónico. Tu cuenta está vinculada únicamente a tu Android ID. Puedes eliminar todos tus datos en cualquier momento directamente desde la app.</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Cards -->
+  <div class="cards">
+
+    <div class="card">
+      <div class="card-header">
+        <span class="step-badge">MÉTODO PRINCIPAL</span>
+        <h2>Botón RESET en la app</h2>
+      </div>
+      <p>La forma más rápida de eliminar tu cuenta y todos tus datos es usar el botón <strong style="color:var(--text)">RESET</strong> que encontrarás en la pantalla principal de la aplicación.</p>
+      <div class="reset-preview">RESET</div>
+      <ul class="steps">
+        <li>
+          <span class="step-num">1</span>
+          <p>Abre <strong>Connect</strong> en tu dispositivo Android.</p>
+        </li>
+        <li>
+          <span class="step-num">2</span>
+          <p>Pulsa el botón <strong>RESET</strong> en la esquina superior derecha.</p>
+        </li>
+        <li>
+          <span class="step-num">3</span>
+          <p>Se mostrará tu <strong>Android ID</strong>. Escríbelo en el campo de confirmación.</p>
+        </li>
+        <li>
+          <span class="step-num">4</span>
+          <p>Confirma pulsando <strong>RESETEAR</strong>. La app borrará todos tus datos del servidor y se cerrará.</p>
+        </li>
+      </ul>
+    </div>
+
+    <div class="card warning">
+      <div class="card-header">
+        <span class="step-badge">IMPORTANTE</span>
+        <h2>¿Qué se borra exactamente?</h2>
+      </div>
+      <p>Al hacer reset se eliminan permanentemente:</p>
+      <ul class="steps" style="margin-top:14px;">
+        <li>
+          <span class="step-num" style="color:var(--red);border-color:rgba(255,59,59,0.3)">✕</span>
+          <p>Tu <strong>nombre de usuario</strong> visible en el ranking.</p>
+        </li>
+        <li>
+          <span class="step-num" style="color:var(--red);border-color:rgba(255,59,59,0.3)">✕</span>
+          <p>Tu <strong>contador de conexiones</strong> y el historial de IDs de contacto.</p>
+        </li>
+        <li>
+          <span class="step-num" style="color:var(--red);border-color:rgba(255,59,59,0.3)">✕</span>
+          <p>Tu entrada en el <strong>ranking global</strong>.</p>
+        </li>
+      </ul>
+      <p style="margin-top:16px; font-size:13px;">Esta acción es <strong style="color:var(--red)">irreversible</strong>. No guardamos copias de seguridad de datos personales.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <span class="step-badge">PRIVACIDAD</span>
+        <h2>¿Qué datos recoge Connect?</h2>
+      </div>
+      <p>Connect recoge únicamente los datos mínimos necesarios para funcionar:</p>
+      <ul class="steps" style="margin-top:14px;">
+        <li>
+          <span class="step-num">·</span>
+          <p><strong>Android ID</strong> — identificador anónimo del dispositivo. Se usa como clave de tu cuenta. No contiene información personal identificable.</p>
+        </li>
+        <li>
+          <span class="step-num">·</span>
+          <p><strong>Nombre de usuario</strong> — elegido libremente por ti. Visible solo en el ranking global.</p>
+        </li>
+        <li>
+          <span class="step-num">·</span>
+          <p><strong>Contador de conexiones</strong> — número de personas conocidas mediante NFC. Nunca se almacenan nombres ni datos de los otros dispositivos.</p>
+        </li>
+      </ul>
+      <div class="code-box">Todos los datos se almacenan en Firebase Firestore y se transmiten cifrados mediante HTTPS/TLS.</div>
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>CONNECT · <span id="year"></span> · com.daniku.connect</p>
+    <a href="https://play.google.com/store/apps/details?id=com.daniku.connect">Google Play</a>
+  </footer>
+
+</div>
+
+<script>
+  // Year
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Meteor animation
+  const canvas = document.getElementById('meteors');
+  const ctx = canvas.getContext('2d');
+  let W, H;
+
+  function resize() {
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  const meteors = Array.from({ length: 5 }, (_, i) => ({
+    x: Math.random() * W,
+    y: Math.random() * H * 0.5,
+    speed: 1.2 + Math.random() * 1.4,
+    tail: 40 + Math.random() * 30,
+    delay: Math.random() * 200,
+    t: Math.random() * 100,
+  }));
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    const now = performance.now() * 0.001;
+
+    meteors.forEach(m => {
+      m.t += m.speed * 0.012;
+      if (m.t > 1.5) {
+        m.t = 0;
+        m.x = -60 + Math.random() * W * 0.4;
+        m.y = Math.random() * H * 0.6;
+      }
+
+      const hx = m.x + m.t * W * 0.55;
+      const hy = m.y - m.t * H * 0.45;
+
+      if (hx > W + 20 || hy < -20) return;
+
+      const tx = hx - m.tail * 0.707;
+      const ty = hy + m.tail * 0.707;
+
+      const grad = ctx.createLinearGradient(tx, ty, hx, hy);
+      grad.addColorStop(0, 'rgba(0,180,255,0)');
+      grad.addColorStop(1, 'rgba(0,180,255,0.45)');
+
+      ctx.beginPath();
+      ctx.moveTo(tx, ty);
+      ctx.lineTo(hx, hy);
+      ctx.strokeStyle = grad;
+      ctx.lineWidth = 1.2;
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.arc(hx, hy, 1.5, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(0,200,255,0.8)';
+      ctx.fill();
+    });
+
+    requestAnimationFrame(draw);
+  }
+  draw();
+</script>
+
+</body>
+</html>
