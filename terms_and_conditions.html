@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Connect — Terms & Conditions</title>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #08080f; --surface: #0e0e1a; --accent: #00b4ff; --accent-dim: #003a55;
+      --border: #1a1a2e; --text: #eeeef2; --muted: #3a3a55; --sub: #5a5a7a;
+      --mono: 'Share Tech Mono', monospace; --sans: 'DM Sans', sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: var(--sans); min-height: 100vh; overflow-x: hidden; }
+    body::before {
+      content: ''; position: fixed; inset: 0;
+      background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 44px 44px; opacity: 0.6; pointer-events: none; z-index: 0;
+    }
+    body::after {
+      content: ''; position: fixed; top: -20%; left: 50%; transform: translateX(-50%);
+      width: 700px; height: 500px;
+      background: radial-gradient(ellipse, rgba(0,180,255,0.06) 0%, transparent 70%);
+      pointer-events: none; z-index: 0;
+    }
+    #meteors { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+    .page { position: relative; z-index: 1; max-width: 720px; margin: 0 auto; padding: 60px 24px 80px; }
+
+    nav {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 56px; animation: fadeUp 0.5s ease both;
+    }
+    .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .logo-mark {
+      width: 36px; height: 36px; border: 1.5px solid var(--accent-dim);
+      border-radius: 9px; display: flex; align-items: center; justify-content: center;
+      background: var(--surface);
+    }
+    .logo-mark svg { width: 18px; height: 18px; }
+    .brand-text { font-family: var(--mono); font-size: 12px; letter-spacing: 3px; color: var(--text); }
+    .nav-links { display: flex; gap: 8px; }
+    .nav-link {
+      font-family: var(--mono); font-size: 9px; letter-spacing: 1.5px; color: var(--sub);
+      text-decoration: none; border: 1px solid var(--border); border-radius: 20px;
+      padding: 6px 14px; transition: color 0.2s, border-color 0.2s;
+    }
+    .nav-link:hover, .nav-link.active { color: var(--accent); border-color: var(--accent-dim); }
+
+    .hero { margin-bottom: 48px; animation: fadeUp 0.5s 0.1s ease both; }
+    .eyebrow {
+      font-family: var(--mono); font-size: 10px; letter-spacing: 2px; color: var(--accent);
+      margin-bottom: 14px; display: flex; align-items: center; gap: 8px;
+    }
+    .eyebrow::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+    h1 { font-size: clamp(26px, 4vw, 36px); font-weight: 500; line-height: 1.2; margin-bottom: 12px; }
+    h1 em { font-style: normal; color: var(--accent); }
+    .hero p { font-size: 14px; color: var(--sub); line-height: 1.7; }
+    .effective { font-family: var(--mono); font-size: 10px; color: var(--muted); margin-top: 10px; letter-spacing: 1px; }
+
+    .divider { height: 1px; background: linear-gradient(90deg, var(--accent-dim), transparent); margin: 36px 0; }
+
+    .section { margin-bottom: 40px; animation: fadeUp 0.5s ease both; }
+    .section:nth-child(1) { animation-delay: 0.2s; }
+    .section:nth-child(2) { animation-delay: 0.25s; }
+    .section:nth-child(3) { animation-delay: 0.3s; }
+    .section:nth-child(4) { animation-delay: 0.35s; }
+    .section:nth-child(5) { animation-delay: 0.4s; }
+    .section:nth-child(6) { animation-delay: 0.45s; }
+    .section:nth-child(7) { animation-delay: 0.5s; }
+    h2 {
+      font-size: 13px; font-family: var(--mono); letter-spacing: 2px; color: var(--accent);
+      margin-bottom: 14px; display: flex; align-items: center; gap: 10px;
+    }
+    h2::before { content: '//'; color: var(--accent-dim); }
+    p { font-size: 14px; color: var(--sub); line-height: 1.8; margin-bottom: 12px; }
+    ul { padding-left: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
+    ul li { font-size: 14px; color: var(--sub); line-height: 1.7; padding-left: 18px; position: relative; }
+    ul li::before { content: '·'; position: absolute; left: 0; color: var(--accent); }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .contact-box {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 14px;
+      padding: 20px 24px; margin-top: 16px; display: flex; align-items: center; gap: 14px;
+    }
+    .contact-box span { font-family: var(--mono); font-size: 11px; color: var(--sub); letter-spacing: 0.5px; }
+    .contact-box a { font-family: var(--mono); font-size: 12px; color: var(--accent); }
+
+    footer {
+      margin-top: 64px; padding-top: 24px; border-top: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+    }
+    footer p { font-family: var(--mono); font-size: 10px; letter-spacing: 1px; color: var(--muted); }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+    @media (max-width: 480px) { .page { padding: 36px 16px 60px; } .nav-links { gap: 6px; } }
+  </style>
+</head>
+<body>
+<canvas id="meteors"></canvas>
+<div class="page">
+
+  <nav>
+    <a href="index.html" class="brand">
+      <div class="logo-mark">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M4 4 L10 20 L12 14 L20 4" stroke="#00b4ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 14 L20 20" stroke="#00b4ff" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </div>
+      <span class="brand-text">CONNECT</span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link">DATA DELETION</a>
+      <a href="privacy.html" class="nav-link">PRIVACY</a>
+      <a href="terms.html" class="nav-link active">TERMS</a>
+    </div>
+  </nav>
+
+  <div class="hero">
+    <div class="eyebrow">LEGAL · TERMS</div>
+    <h1>Terms &amp; <em>Conditions</em></h1>
+    <p>By downloading or using Connect, you automatically agree to these terms. Please read them carefully before using the Application.</p>
+    <p class="effective">EFFECTIVE DATE · 2026-03-06</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section">
+    <h2>Intellectual property</h2>
+    <p>Unauthorized copying or modification of the Application, any part of it, or our trademarks is strictly prohibited. Attempts to extract source code, translate the Application, or create derivative versions are not permitted. All intellectual property rights remain the property of the Service Provider.</p>
+  </div>
+
+  <div class="section">
+    <h2>Service</h2>
+    <p>The Service Provider reserves the right to modify the Application or charge for services at any time and for any reason. Any charges will be clearly communicated to you in advance.</p>
+  </div>
+
+  <div class="section">
+    <h2>Personal data</h2>
+    <p>The Application stores and processes personal data you provide in order to deliver the service. You are responsible for maintaining the security of your phone and access to the Application. The Service Provider strongly advises against jailbreaking or rooting your phone, as this may compromise security features and cause the Application to malfunction.</p>
+  </div>
+
+  <div class="section">
+    <h2>Third-party services</h2>
+    <p>The Application uses third-party services with their own Terms and Conditions:</p>
+    <ul>
+      <li><a href="https://firebase.google.com/terms" target="_blank">Google Firebase Firestore</a></li>
+      <li><a href="https://firebase.google.com/terms" target="_blank">Google Firebase Authentication</a></li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>Internet connection</h2>
+    <p>Some functions require an active internet connection. The Service Provider is not responsible if the Application does not function at full capacity due to lack of Wi-Fi or exhausted data allowance. Your mobile network provider's terms still apply when using the Application outside Wi-Fi areas.</p>
+  </div>
+
+  <div class="section">
+    <h2>Limitation of liability</h2>
+    <p>The Service Provider cannot always assume responsibility for your usage of the Application. While striving to keep the Application updated and accurate, the Service Provider accepts no liability for any loss, direct or indirect, resulting from reliance on the Application's functionality.</p>
+  </div>
+
+  <div class="section">
+    <h2>Updates &amp; termination</h2>
+    <p>You agree to always accept updates to the Application when offered. The Service Provider may cease providing the Application and terminate its use at any time without prior notice. Upon termination, all rights and licenses granted to you will end.</p>
+  </div>
+
+  <div class="section">
+    <h2>Changes to these terms</h2>
+    <p>These Terms and Conditions may be updated periodically. You are advised to review this page regularly. Continued use of the Application constitutes acceptance of any changes.</p>
+  </div>
+
+  <div class="section">
+    <h2>Contact</h2>
+    <div class="contact-box">
+      <span>SERVICE PROVIDER ·</span>
+      <a href="mailto:danikudevv@gmail.com">danikudevv@gmail.com</a>
+    </div>
+  </div>
+
+  <footer>
+    <p>CONNECT · DANIKUDEVV · 2026</p>
+    <p>com.daniku.connect</p>
+  </footer>
+</div>
+<script>
+  const canvas = document.getElementById('meteors'), ctx = canvas.getContext('2d');
+  let W, H;
+  function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+  resize(); window.addEventListener('resize', resize);
+  const meteors = Array.from({length:4},()=>({x:Math.random()*800,y:Math.random()*H*0.5,speed:1.2+Math.random()*1.2,tail:35+Math.random()*25,t:Math.random()}));
+  function draw() {
+    ctx.clearRect(0,0,W,H);
+    meteors.forEach(m => {
+      m.t += m.speed*0.011; if(m.t>1.5){m.t=0;m.x=Math.random()*W*0.5;m.y=Math.random()*H*0.5;}
+      const hx=m.x+m.t*W*0.5, hy=m.y-m.t*H*0.4;
+      if(hx>W+20||hy<-20) return;
+      const tx=hx-m.tail*0.707, ty=hy+m.tail*0.707;
+      const g=ctx.createLinearGradient(tx,ty,hx,hy);
+      g.addColorStop(0,'rgba(0,180,255,0)'); g.addColorStop(1,'rgba(0,180,255,0.4)');
+      ctx.beginPath(); ctx.moveTo(tx,ty); ctx.lineTo(hx,hy);
+      ctx.strokeStyle=g; ctx.lineWidth=1.1; ctx.stroke();
+      ctx.beginPath(); ctx.arc(hx,hy,1.4,0,Math.PI*2); ctx.fillStyle='rgba(0,200,255,0.8)'; ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+</script>
+</body>
+</html>
