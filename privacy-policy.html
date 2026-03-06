@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Connect — Privacy Policy</title>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #08080f; --surface: #0e0e1a; --accent: #00b4ff; --accent-dim: #003a55;
+      --border: #1a1a2e; --text: #eeeef2; --muted: #3a3a55; --sub: #5a5a7a;
+      --mono: 'Share Tech Mono', monospace; --sans: 'DM Sans', sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: var(--sans); min-height: 100vh; overflow-x: hidden; }
+    body::before {
+      content: ''; position: fixed; inset: 0;
+      background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 44px 44px; opacity: 0.6; pointer-events: none; z-index: 0;
+    }
+    body::after {
+      content: ''; position: fixed; top: -20%; left: 50%; transform: translateX(-50%);
+      width: 700px; height: 500px;
+      background: radial-gradient(ellipse, rgba(0,180,255,0.06) 0%, transparent 70%);
+      pointer-events: none; z-index: 0;
+    }
+    #meteors { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+    .page { position: relative; z-index: 1; max-width: 720px; margin: 0 auto; padding: 60px 24px 80px; }
+
+    /* NAV */
+    nav {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 56px; animation: fadeUp 0.5s ease both;
+    }
+    .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .logo-mark {
+      width: 36px; height: 36px; border: 1.5px solid var(--accent-dim);
+      border-radius: 9px; display: flex; align-items: center; justify-content: center;
+      background: var(--surface);
+    }
+    .logo-mark svg { width: 18px; height: 18px; }
+    .brand-text { font-family: var(--mono); font-size: 12px; letter-spacing: 3px; color: var(--text); }
+    .nav-links { display: flex; gap: 8px; }
+    .nav-link {
+      font-family: var(--mono); font-size: 9px; letter-spacing: 1.5px; color: var(--sub);
+      text-decoration: none; border: 1px solid var(--border); border-radius: 20px;
+      padding: 6px 14px; transition: color 0.2s, border-color 0.2s;
+    }
+    .nav-link:hover, .nav-link.active { color: var(--accent); border-color: var(--accent-dim); }
+
+    /* HERO */
+    .hero { margin-bottom: 48px; animation: fadeUp 0.5s 0.1s ease both; }
+    .eyebrow {
+      font-family: var(--mono); font-size: 10px; letter-spacing: 2px; color: var(--accent);
+      margin-bottom: 14px; display: flex; align-items: center; gap: 8px;
+    }
+    .eyebrow::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+    h1 { font-size: clamp(26px, 4vw, 36px); font-weight: 500; line-height: 1.2; margin-bottom: 12px; }
+    h1 em { font-style: normal; color: var(--accent); }
+    .hero p { font-size: 14px; color: var(--sub); line-height: 1.7; }
+    .effective { font-family: var(--mono); font-size: 10px; color: var(--muted); margin-top: 10px; letter-spacing: 1px; }
+
+    .divider { height: 1px; background: linear-gradient(90deg, var(--accent-dim), transparent); margin: 36px 0; }
+
+    /* CONTENT */
+    .section { margin-bottom: 40px; animation: fadeUp 0.5s ease both; }
+    .section:nth-child(1) { animation-delay: 0.2s; }
+    .section:nth-child(2) { animation-delay: 0.25s; }
+    .section:nth-child(3) { animation-delay: 0.3s; }
+    .section:nth-child(4) { animation-delay: 0.35s; }
+    .section:nth-child(5) { animation-delay: 0.4s; }
+    h2 {
+      font-size: 13px; font-family: var(--mono); letter-spacing: 2px; color: var(--accent);
+      margin-bottom: 14px; display: flex; align-items: center; gap: 10px;
+    }
+    h2::before { content: '//'; color: var(--accent-dim); }
+    p { font-size: 14px; color: var(--sub); line-height: 1.8; margin-bottom: 12px; }
+    ul { padding-left: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
+    ul li { font-size: 14px; color: var(--sub); line-height: 1.7; padding-left: 18px; position: relative; }
+    ul li::before { content: '·'; position: absolute; left: 0; color: var(--accent); }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* CONTACT BOX */
+    .contact-box {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 14px;
+      padding: 20px 24px; margin-top: 16px; display: flex; align-items: center; gap: 14px;
+    }
+    .contact-box span { font-family: var(--mono); font-size: 11px; color: var(--sub); letter-spacing: 0.5px; }
+    .contact-box a { font-family: var(--mono); font-size: 12px; color: var(--accent); }
+
+    footer {
+      margin-top: 64px; padding-top: 24px; border-top: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+    }
+    footer p { font-family: var(--mono); font-size: 10px; letter-spacing: 1px; color: var(--muted); }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+    @media (max-width: 480px) { .page { padding: 36px 16px 60px; } .nav-links { gap: 6px; } }
+  </style>
+</head>
+<body>
+<canvas id="meteors"></canvas>
+<div class="page">
+
+  <nav>
+    <a href="index.html" class="brand">
+      <div class="logo-mark">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M4 4 L10 20 L12 14 L20 4" stroke="#00b4ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 14 L20 20" stroke="#00b4ff" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </div>
+      <span class="brand-text">CONNECT</span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link">DATA DELETION</a>
+      <a href="privacy.html" class="nav-link active">PRIVACY</a>
+      <a href="terms.html" class="nav-link">TERMS</a>
+    </div>
+  </nav>
+
+  <div class="hero">
+    <div class="eyebrow">LEGAL · PRIVACY</div>
+    <h1>Privacy <em>Policy</em></h1>
+    <p>This privacy policy applies to the Connect app developed by Danikudevv as a free service.</p>
+    <p class="effective">EFFECTIVE DATE · 2026-03-06</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section">
+    <h2>Information collected</h2>
+    <p>The Application acquires information you supply when you download and register the Application. Registration is not mandatory, though some features may require it.</p>
+    <p>The Application may collect certain information automatically, including:</p>
+    <ul>
+      <li>Type of mobile device used</li>
+      <li>Your mobile device's unique Android ID</li>
+      <li>IP address of your mobile device</li>
+      <li>Your mobile operating system</li>
+      <li>Information about how you use the Application</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>Location & AI</h2>
+    <p>This Application does not gather precise real-time location information from your mobile device.</p>
+    <p>The Application does not use Artificial Intelligence (AI) technologies to process your data or provide features.</p>
+  </div>
+
+  <div class="section">
+    <h2>Third-party services</h2>
+    <p>The Application uses third-party services with their own privacy policies:</p>
+    <ul>
+      <li><a href="https://firebase.google.com/support/privacy" target="_blank">Google Firebase Firestore</a></li>
+      <li><a href="https://firebase.google.com/support/privacy" target="_blank">Google Firebase Authentication</a></li>
+    </ul>
+    <p>The Service Provider may disclose information as required by law or to protect rights and safety.</p>
+  </div>
+
+  <div class="section">
+    <h2>Data retention & deletion</h2>
+    <p>User data is retained for as long as you use the Application and for a reasonable time thereafter. You can delete all your data directly within the app using the <strong style="color:var(--text)">RESET</strong> button, or by contacting us at the email below.</p>
+  </div>
+
+  <div class="section">
+    <h2>Children's privacy</h2>
+    <p>The Application does not address anyone under the age of 13. If a child under 13 provides personal information, it will be immediately deleted. Contact us if you believe this has occurred.</p>
+  </div>
+
+  <div class="section">
+    <h2>Security</h2>
+    <p>Data is transmitted securely using HTTPS encryption via Google Firebase services. No security system can prevent all potential breaches.</p>
+  </div>
+
+  <div class="section">
+    <h2>Contact</h2>
+    <div class="contact-box">
+      <span>SERVICE PROVIDER ·</span>
+      <a href="mailto:danikudevv@gmail.com">danikudevv@gmail.com</a>
+    </div>
+  </div>
+
+  <footer>
+    <p>CONNECT · DANIKUDEVV · 2026</p>
+    <p>com.daniku.connect</p>
+  </footer>
+</div>
+<script>
+  const canvas = document.getElementById('meteors'), ctx = canvas.getContext('2d');
+  let W, H;
+  function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+  resize(); window.addEventListener('resize', resize);
+  const meteors = Array.from({length:4},()=>({x:Math.random()*800,y:Math.random()*H*0.5,speed:1.2+Math.random()*1.2,tail:35+Math.random()*25,t:Math.random()}));
+  function draw() {
+    ctx.clearRect(0,0,W,H);
+    meteors.forEach(m => {
+      m.t += m.speed*0.011; if(m.t>1.5){m.t=0;m.x=Math.random()*W*0.5;m.y=Math.random()*H*0.5;}
+      const hx=m.x+m.t*W*0.5, hy=m.y-m.t*H*0.4;
+      if(hx>W+20||hy<-20) return;
+      const tx=hx-m.tail*0.707, ty=hy+m.tail*0.707;
+      const g=ctx.createLinearGradient(tx,ty,hx,hy);
+      g.addColorStop(0,'rgba(0,180,255,0)'); g.addColorStop(1,'rgba(0,180,255,0.4)');
+      ctx.beginPath(); ctx.moveTo(tx,ty); ctx.lineTo(hx,hy);
+      ctx.strokeStyle=g; ctx.lineWidth=1.1; ctx.stroke();
+      ctx.beginPath(); ctx.arc(hx,hy,1.4,0,Math.PI*2); ctx.fillStyle='rgba(0,200,255,0.8)'; ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+</script>
+</body>
+</html>
