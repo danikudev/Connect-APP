@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Connect — Child Safety Standards</title>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #08080f; --surface: #0e0e1a; --accent: #00b4ff; --accent-dim: #003a55;
+      --border: #1a1a2e; --text: #eeeef2; --muted: #3a3a55; --sub: #5a5a7a;
+      --red: #ff3b3b; --red-dim: #3a0a0a; --green: #2ecc71; --green-dim: #0a2a15;
+      --mono: 'Share Tech Mono', monospace; --sans: 'DM Sans', sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: var(--sans); min-height: 100vh; overflow-x: hidden; }
+    body::before {
+      content: ''; position: fixed; inset: 0;
+      background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 44px 44px; opacity: 0.6; pointer-events: none; z-index: 0;
+    }
+    body::after {
+      content: ''; position: fixed; top: -20%; left: 50%; transform: translateX(-50%);
+      width: 700px; height: 500px;
+      background: radial-gradient(ellipse, rgba(0,180,255,0.06) 0%, transparent 70%);
+      pointer-events: none; z-index: 0;
+    }
+    #meteors { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+    .page { position: relative; z-index: 1; max-width: 720px; margin: 0 auto; padding: 60px 24px 80px; }
+
+    /* NAV */
+    nav {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 56px; animation: fadeUp 0.5s ease both;
+    }
+    .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .logo-mark {
+      width: 36px; height: 36px; border: 1.5px solid var(--accent-dim);
+      border-radius: 9px; display: flex; align-items: center; justify-content: center;
+      background: var(--surface);
+    }
+    .logo-mark svg { width: 18px; height: 18px; }
+    .brand-text { font-family: var(--mono); font-size: 12px; letter-spacing: 3px; color: var(--text); }
+    .nav-links { display: flex; gap: 8px; flex-wrap: wrap; }
+    .nav-link {
+      font-family: var(--mono); font-size: 9px; letter-spacing: 1.5px; color: var(--sub);
+      text-decoration: none; border: 1px solid var(--border); border-radius: 20px;
+      padding: 6px 14px; transition: color 0.2s, border-color 0.2s;
+    }
+    .nav-link:hover, .nav-link.active { color: var(--accent); border-color: var(--accent-dim); }
+
+    /* HERO */
+    .hero { margin-bottom: 48px; animation: fadeUp 0.5s 0.1s ease both; }
+    .eyebrow {
+      font-family: var(--mono); font-size: 10px; letter-spacing: 2px; color: var(--accent);
+      margin-bottom: 14px; display: flex; align-items: center; gap: 8px;
+    }
+    .eyebrow::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+    h1 { font-size: clamp(26px, 4vw, 36px); font-weight: 500; line-height: 1.2; margin-bottom: 12px; }
+    h1 em { font-style: normal; color: var(--accent); }
+    .hero p { font-size: 14px; color: var(--sub); line-height: 1.7; }
+    .effective { font-family: var(--mono); font-size: 10px; color: var(--muted); margin-top: 10px; letter-spacing: 1px; }
+
+    .divider { height: 1px; background: linear-gradient(90deg, var(--accent-dim), transparent); margin: 36px 0; }
+
+    /* SECTIONS */
+    .section { margin-bottom: 40px; animation: fadeUp 0.5s ease both; }
+    .section:nth-child(1) { animation-delay: 0.2s; }
+    .section:nth-child(2) { animation-delay: 0.25s; }
+    .section:nth-child(3) { animation-delay: 0.3s; }
+    .section:nth-child(4) { animation-delay: 0.35s; }
+    .section:nth-child(5) { animation-delay: 0.4s; }
+    .section:nth-child(6) { animation-delay: 0.45s; }
+    .section:nth-child(7) { animation-delay: 0.5s; }
+    h2 {
+      font-size: 13px; font-family: var(--mono); letter-spacing: 2px; color: var(--accent);
+      margin-bottom: 14px; display: flex; align-items: center; gap: 10px;
+    }
+    h2::before { content: '//'; color: var(--accent-dim); }
+    p { font-size: 14px; color: var(--sub); line-height: 1.8; margin-bottom: 12px; }
+    p strong { color: var(--text); font-weight: 500; }
+    ul { padding-left: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
+    ul li { font-size: 14px; color: var(--sub); line-height: 1.7; padding-left: 18px; position: relative; }
+    ul li::before { content: '·'; position: absolute; left: 0; color: var(--accent); }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* CARDS */
+    .card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 18px;
+      padding: 28px; margin-bottom: 16px;
+    }
+    .card.danger { border-color: rgba(255,59,59,0.2); background: linear-gradient(135deg, var(--surface), var(--red-dim)); }
+    .card.safe { border-color: rgba(46,204,113,0.2); background: linear-gradient(135deg, var(--surface), var(--green-dim)); }
+    .card h3 { font-size: 15px; font-weight: 500; margin-bottom: 14px; }
+    .card ul li.red::before { content: '✕'; color: var(--red); font-size: 11px; }
+    .card ul li.green::before { content: '✓'; color: var(--green); font-size: 11px; }
+
+    /* CONTACT BOX */
+    .contact-box {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 14px;
+      padding: 24px; margin-top: 16px; text-align: center;
+    }
+    .contact-box .label { font-family: var(--mono); font-size: 10px; letter-spacing: 2px; color: var(--muted); margin-bottom: 8px; }
+    .contact-box a { font-family: var(--mono); font-size: 14px; color: var(--accent); }
+    .contact-box .note { font-size: 12px; color: var(--sub); margin-top: 12px; }
+
+    /* STEP BADGE */
+    .step-badge {
+      font-family: var(--mono); font-size: 9px; letter-spacing: 1.5px; color: var(--accent);
+      background: rgba(0,180,255,0.08); border: 1px solid rgba(0,180,255,0.2);
+      border-radius: 20px; padding: 4px 10px; display: inline-block; margin-bottom: 14px;
+    }
+
+    footer {
+      margin-top: 64px; padding-top: 24px; border-top: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+    }
+    footer p { font-family: var(--mono); font-size: 10px; letter-spacing: 1px; color: var(--muted); }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+    @media (max-width: 480px) { .page { padding: 36px 16px 60px; } .nav-links { gap: 6px; } }
+  </style>
+</head>
+<body>
+<canvas id="meteors"></canvas>
+<div class="page">
+
+  <nav>
+    <a href="index.html" class="brand">
+      <div class="logo-mark">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M4 4 L10 20 L12 14 L20 4" stroke="#00b4ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 14 L20 20" stroke="#00b4ff" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </div>
+      <span class="brand-text">CONNECT</span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link">DELETION</a>
+      <a href="privacy-policy.html" class="nav-link">PRIVACY</a>
+      <a href="terms_and_conditions.html" class="nav-link">TERMS</a>
+      <a href="child-safety.html" class="nav-link active">CHILD SAFETY</a>
+    </div>
+  </nav>
+
+  <div class="hero">
+    <div class="eyebrow">SAFETY · CSAE STANDARDS</div>
+    <h1>Child Safety <em>Standards</em></h1>
+    <p>Connect maintains a zero-tolerance policy toward child sexual abuse material (CSAM) and any form of child exploitation or abuse on our platform.</p>
+    <p class="effective">LAST UPDATED · 2026-03-07</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ZERO TOLERANCE -->
+  <div class="section">
+    <h2>Zero tolerance policy</h2>
+    <p>Connect strictly prohibits any content or behavior that exploits, endangers, or harms minors. This includes but is not limited to:</p>
+    <div class="card danger">
+      <h3>Prohibited conduct</h3>
+      <ul>
+        <li class="red">Child sexual abuse material (CSAM) of any kind</li>
+        <li class="red">Grooming or any attempt to establish inappropriate contact with minors</li>
+        <li class="red">Solicitation or exploitation of minors in any form</li>
+        <li class="red">Sharing content that sexualizes or endangers children</li>
+        <li class="red">Any behavior that facilitates child trafficking or abuse</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- SAFETY BY DESIGN -->
+  <div class="section">
+    <h2>Safety by design</h2>
+    <p>Connect is designed with minimal data collection and limited interaction features, which inherently reduces risks:</p>
+    <div class="card safe">
+      <h3>Built-in protections</h3>
+      <ul>
+        <li class="green"><strong>No messaging or chat</strong> — users cannot send messages, photos, or any content to each other</li>
+        <li class="green"><strong>No user profiles</strong> — only a username and a connection counter are stored</li>
+        <li class="green"><strong>Physical proximity required</strong> — connections only happen via NFC (touching phones), making remote exploitation impossible</li>
+        <li class="green"><strong>No personal data</strong> — we do not collect names, ages, emails, phone numbers, or locations</li>
+        <li class="green"><strong>Anonymous by design</strong> — accounts are tied to an anonymous device ID, not to personal identity</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- PROACTIVE MEASURES -->
+  <div class="section">
+    <h2>Proactive measures</h2>
+    <p>Connect includes a built-in <strong>profanity and hate speech filter</strong> that prevents inappropriate usernames. The filter covers multiple languages (Spanish, English, Catalan) and detects evasion techniques such as leet speak substitutions and character obfuscation.</p>
+    <p>Since Connect does not allow users to exchange messages, images, links, or any form of content, the attack surface for grooming, exploitation, or CSAM distribution is <strong>effectively zero</strong>.</p>
+    <p>Users can permanently delete all their data at any time using the in-app <strong>RESET</strong> button. Deletion is immediate and irreversible.</p>
+  </div>
+
+  <!-- REPORTING -->
+  <div class="section">
+    <h2>How to report concerns</h2>
+    <p>If you become aware of any child safety concern related to Connect, please contact us immediately:</p>
+    <div class="contact-box">
+      <div class="label">REPORT CHILD SAFETY ISSUES</div>
+      <a href="mailto:rpgzk47@gmail.com">danikudevv@gmail.com</a>
+      <p class="note">We commit to reviewing all reports within <strong>24 hours</strong> and taking immediate action when necessary.</p>
+    </div>
+  </div>
+
+  <!-- RESPONSE PROCESS -->
+  <div class="section">
+    <h2>Response process</h2>
+    <div class="card">
+      <span class="step-badge">ENFORCEMENT</span>
+      <ul>
+        <li><strong>Immediate review</strong> — all reports are reviewed within 24 hours</li>
+        <li><strong>Account removal</strong> — offending accounts are permanently deleted without notice</li>
+        <li><strong>Law enforcement</strong> — we report all instances of CSAM and child exploitation to the relevant authorities, including NCMEC (National Center for Missing & Exploited Children) and local law enforcement agencies</li>
+        <li><strong>Full cooperation</strong> — we cooperate with law enforcement investigations related to child safety</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- LEGAL COMPLIANCE -->
+  <div class="section">
+    <h2>Legal compliance</h2>
+    <p>Connect complies with all applicable child safety laws and regulations, including:</p>
+    <ul>
+      <li>Children's Online Privacy Protection Act (COPPA)</li>
+      <li>EU General Data Protection Regulation (GDPR) — provisions for minors</li>
+      <li>Google Play Developer Policy on Child Safety</li>
+      <li>Applicable national and regional child protection laws</li>
+    </ul>
+  </div>
+
+  <footer>
+    <p>CONNECT · DANIKUDEVV · 2026</p>
+    <p>com.daniku.connect</p>
+  </footer>
+</div>
+<script>
+  const canvas = document.getElementById('meteors'), ctx = canvas.getContext('2d');
+  let W, H;
+  function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+  resize(); window.addEventListener('resize', resize);
+  const meteors = Array.from({length:4},()=>({x:Math.random()*800,y:Math.random()*H*0.5,speed:1.2+Math.random()*1.2,tail:35+Math.random()*25,t:Math.random()}));
+  function draw() {
+    ctx.clearRect(0,0,W,H);
+    meteors.forEach(m => {
+      m.t += m.speed*0.011; if(m.t>1.5){m.t=0;m.x=Math.random()*W*0.5;m.y=Math.random()*H*0.5;}
+      const hx=m.x+m.t*W*0.5, hy=m.y-m.t*H*0.4;
+      if(hx>W+20||hy<-20) return;
+      const tx=hx-m.tail*0.707, ty=hy+m.tail*0.707;
+      const g=ctx.createLinearGradient(tx,ty,hx,hy);
+      g.addColorStop(0,'rgba(0,180,255,0)'); g.addColorStop(1,'rgba(0,180,255,0.4)');
+      ctx.beginPath(); ctx.moveTo(tx,ty); ctx.lineTo(hx,hy);
+      ctx.strokeStyle=g; ctx.lineWidth=1.1; ctx.stroke();
+      ctx.beginPath(); ctx.arc(hx,hy,1.4,0,Math.PI*2); ctx.fillStyle='rgba(0,200,255,0.8)'; ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+</script>
+</body>
+</html>
